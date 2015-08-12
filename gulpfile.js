@@ -1,5 +1,10 @@
+'use strict';
 var gulp = require('gulp');
 var connect = require('gulp-connect');
+var jshint = require('gulp-jshint');
+var plumber = require('gulp-plumber');
+var uglify = require('gulp-uglify');
+var del = require('del');
 
 gulp.task('connect', function(){
     connect.server({
@@ -8,18 +13,30 @@ gulp.task('connect', function(){
     });
 });
 
+gulp.task('delete', function(){
+    del(['assets/stylesheets/*', 'assets/javascripts/*'], function(err){
+        if(!err) console.log("Files Deleted.");
+        else  console.log(err);
+    });
+});
+
 gulp.task('html', function () {
-  gulp.src('./*.html')
+  return gulp.src('./*.html')
     .pipe(connect.reload());
 });
 
 gulp.task('scripts', function () {
-  gulp.src('./public/scripts/*.js')
+  return gulp.src('./public/scripts/*.js')
+    .pipe(plumber())
+    .pipe(uglify())
+    .pipe(jshint())
+    .pipe(gulp.dest('assets/javascripts'))
     .pipe(connect.reload());
 });
 
 gulp.task('css', function () {
-  gulp.src('./public/stylesheets/*.css')
+  return gulp.src('./public/stylesheets/*.css')
+    .pipe(gulp.dest('assets/stylesheets'))
     .pipe(connect.reload());
 });
 
@@ -30,4 +47,8 @@ gulp.task('watch', function(){
 });
 
 
-gulp.task('default', ['connect', 'watch']);
+gulp.task('default', ['delete', 'connect', 'watch', 'html', 'scripts', 'css']);
+
+
+
+

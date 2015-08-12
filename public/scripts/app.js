@@ -1,3 +1,2 @@
-var func = (a,b) => a+b;
-let v =130;
+function x(){a=2};
 
