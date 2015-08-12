@@ -1,0 +1,18 @@
+{
+  "name": "d3-optimal-environment",
+  "version": "1.0.0",
+  "description": "An Optimal Environment for D3 Development",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "StanFeng",
+  "license": "MIT",
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-connect": "^2.2.0",
+  },
+  "dependencies": {
+    "d3": "^3.5.6"
+  }
+}
