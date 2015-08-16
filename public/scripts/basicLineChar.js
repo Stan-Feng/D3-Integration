@@ -40,7 +40,19 @@
           .text(function(d){ return d.sales;} )
           .attr({
             x: function(d){ return d.month * 4; },
-            y: function(d){ return height - d.sales}
+            y: function(d){ return height - d.sales},
+            'font-size': '12px',
+            'font-family': 'sans-serif',
+            'fill': '#666666',
+            'text-anchor': 'start',
+            'dy': '0.35em',
+            "font-weight": function(d, i){
+              if(i == monthlySales.length - 3 || i == monthlySales.length -1){
+                return 'bold';
+              } else {
+                return 'normal';
+              }
+            }
           });
 
 })();
