@@ -32,6 +32,32 @@
     }
   };
 
+    /**
+   * @function return label value depends on 'type'
+   * @param-dataset
+   * @param-attr, which attribute will be referenced
+   * @param-value, of attr, will be returned
+   * @param-type, 'minmax', 'normal', 'onlymax', 'onlymin', and so on.
+   */
+  var dynamicallyShowLabels = function(dataset, attr, value, type){
+    var max = d3.max(dataset, function(d){ return d[attr]; });
+    var min = d3.min(dataset, function(d){ return d[attr]; });
+
+    if(type == 'minmax'){
+      if(value == max || value == min){
+        return value;
+      }
+    } else if(type == 'onlymax'){
+
+    } else if(type == 'onlymin'){
+
+    } else if(type == 'normal'){
+      return value;
+    } else {
+
+    }
+  };
+
   var dots = svg.selectAll('circle')
       .data(monthlySales)
       .enter()
@@ -42,5 +68,21 @@
           r: 5,
           fill: function(d){ return colorKPI(d.sales); }
         });
+
+
+  var labels = svg.selectAll('text')
+        .data(monthlySales)
+        .enter()
+        .append('text')
+        .text(function(d){ return dynamicallyShowLabels(monthlySales, 'sales', d.sales, 'minmax'); })
+          .attr({
+            x: function(d){ return d.month * 4 - 25; },
+            y: function(d){ return height - d.sales; },
+            'font-size': '12px',
+            'font-family': 'sans-serif',
+            'fill': '#666666',
+            'text-anchor': 'start'
+          });
+
 
 })();
