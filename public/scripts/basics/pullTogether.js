@@ -34,5 +34,34 @@
           transform: 'translate(' + margin.left + ',' + margin.top + ')'
         });
 
+  //TODO: Add dataset
+  d3.csv('/public/testdata/data.csv', function(err, data){
+    console.log(data);
+  });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 })();
