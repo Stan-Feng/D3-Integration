@@ -21,12 +21,12 @@ gulp.task('delete', function(){
 });
 
 gulp.task('html', function () {
-  return gulp.src('./*.html')
+  return gulp.src('./public/html/*.html')
     .pipe(connect.reload());
 });
 
 gulp.task('scripts', function () {
-  return gulp.src('./public/scripts/*.js')
+  return gulp.src('./public/**/*.js')
     .pipe(plumber())
     .pipe(uglify())
     .pipe(jshint())
