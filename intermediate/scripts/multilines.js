@@ -8,11 +8,14 @@
 
   var x = d3.time.scale().range([0, width]);
   var y = d3.scale.linear().range([height, 0]);
+  var yRight = d3.scale.linear().range([height, 0]);
 
   var xAxis = d3.svg.axis().scale(x)
       .orient('bottom').ticks(5);
   var yAxis = d3.svg.axis().scale(y)
       .orient('left').ticks(5);
+  var yAxisRight = d3.svg.axis().scale(yRight)
+      .orient('right').ticks(5);
 
   var valueline = d3.svg.line()
       .x(function(d){ return x(d.date); })
@@ -21,7 +24,7 @@
   //TODO: Add the second line (x,y) reflection function
   var valueline2 = d3.svg.line()
       .x(function(d){ return x(d.date); })
-      .y(function(d){ return y(d.open); });
+      .y(function(d){ return yRight(d.open); });
 
 
   var svg = d3.select('body').append('svg')
@@ -33,6 +36,7 @@
         .attr({
           transform: 'translate(' + margin.left + ',' + margin.top + ')'
         });
+
   d3.csv('/public/testdata/data2.csv', function(err, data){
     data.forEach(function(d){
       d.date = parseDate(d.date);
@@ -41,7 +45,8 @@
     });
 
     x.domain(d3.extent(data, function(d){ return d.date;} ));
-    y.domain([0, d3.max(data, function(d){ return Math.max(d.close, d.open); }) ]);
+    y.domain([0, d3.max(data, function(d){ return d.close; }) ]);
+    yRight.domain([0, d3.max(data, function(d){ return d.open;}) ]);
 
     svg.append('path')
         .attr({
