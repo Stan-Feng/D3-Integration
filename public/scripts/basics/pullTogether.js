@@ -1,12 +1,19 @@
 (function(){
 
   //TODO: Set the dimensions of the canvas/graph
+  //var windowWidth = window.innerWidth;
   var margin = { top : 30, bottom : 40, right : 20, left : 40 };
-  var width = 600 - margin.left - margin.right;
-  var height = 270 - margin.top - margin.bottom;
+  var width = 700 - margin.left - margin.right;
+  var height =  370 - margin.top - margin.bottom;
 
   //TODO: Parse date / time
   var parseDate = d3.time.format('%d-%b-%y').parse;
+  /**
+   * If we want to parse different formats time
+   * All we need TODO:
+   * combina a String "%Y-%m-%d....." from d3 wiki time format
+   * Then invoke it as a function to parse input data then reuturn a Date objetc
+   */
 
   //TODO: Set the ranges
   var x = d3.time.scale().range([0, width]);
@@ -56,18 +63,36 @@
     //Add xAxis
     svg.append('g')
         .attr({
-          attr: 'x axis',
+          class: 'x axis',
           transform: 'translate(0, ' + height + ')'
         })
         .call(xAxis);
+    //Add xAxis text
+    svg.append('text')
+        .attr({
+          'x': width / 2,
+          'y': height + margin.bottom,
+        })
+        .style('text-anchor', 'center')
+        .text('Date');
+
 
     //Add yAxis
     svg.append('g')
         .attr({
-          attr: 'y axis'
+          class: 'y axis'
         })
         .call(yAxis);
-
+    //Add yAxis text
+    svg.append('text')
+        .attr({
+          'transform': 'rotate(-90)',
+          'y': margin.left / 2,
+          'x': 0 - (height / 2),
+          'dy': '.5em'
+        })
+        .style('text-anchor', 'middle')
+        .text('Value');
 
   });
 
