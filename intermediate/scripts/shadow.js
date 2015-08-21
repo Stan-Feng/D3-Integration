@@ -25,6 +25,11 @@
       .x(function(d){ return x(d.date); })
       .y0(height)
       .y1(function(d){ return y(d.close); });
+  var topArea = d3.svg.area()
+      .x(function(d){ return x(d.date); })
+      .y0(0)
+      .y1(function(d){ return y(d.close); });
+
 
   var valueline = d3.svg.line()
       .x(function(d){ return x(d.date); })
@@ -70,6 +75,12 @@
         .attr({
           class: 'area',
           d: area
+        });
+    svg.append('path')
+        .datum(data)
+        .attr({
+          class: 'top-area',
+          d: topArea
         });
 
     svg.append('path')
