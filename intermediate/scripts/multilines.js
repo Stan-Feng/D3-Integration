@@ -1,6 +1,6 @@
 (function(){
 
-  var margin = { top : 30, bottom : 40, right : 20, left : 40 };
+  var margin = { top : 30, bottom : 40, right : 40, left : 40 };
   var width = 700 - margin.left - margin.right;
   var height =  370 - margin.top - margin.bottom;
 
@@ -18,6 +18,12 @@
       .x(function(d){ return x(d.date); })
       .y(function(d){ return y(d.close); });
 
+  //TODO: Add the second line (x,y) reflection function
+  var valueline2 = d3.svg.line()
+      .x(function(d){ return x(d.date); })
+      .y(function(d){ return y(d.open); });
+
+
   var svg = d3.select('body').append('svg')
       .attr({
         width: width + margin.left + margin.right,
@@ -27,32 +33,58 @@
         .attr({
           transform: 'translate(' + margin.left + ',' + margin.top + ')'
         });
-  d3.csv('/public/testdata/data.csv', function(err, data){
+  d3.csv('/public/testdata/data2.csv', function(err, data){
     data.forEach(function(d){
       d.date = parseDate(d.date);
       d.close = +d.close;
+      d.open = +d.open;
     });
 
     x.domain(d3.extent(data, function(d){ return d.date;} ));
-    y.domain([0, d3.max(data, function(d){ return d.close;} )]);
+    y.domain([0, d3.max(data, function(d){ return Math.max(d.close, d.open); }) ]);
 
     svg.append('path')
         .attr({
-          class: 'line',
-          d: valueline(data)
+          'class': 'line',
+          'd': valueline(data)
         });
+    //TODO: Add the text at the end of line which can outline what line is
+    svg.append('text')
+        .attr({
+          'transform': 'translate(' + (width + 3) + ', ' + y(data[0].open) + ')',
+          'dy': '0.35em',
+          'text-anchor': 'start'
+        })
+        .style('fill', 'red')
+        .text('Open');
+
+    //TODO: Add second line to graph
+    svg.append('path')
+        .attr({
+          'class': 'line',
+          'd': valueline2(data)
+        }).
+        style('stroke', 'red');
+    svg.append('text')
+        .attr({
+          'transform': 'translate(' + (width + 3) + ', ' + y(data[0].close) + ')',
+          'dy': '0.35em',
+          'text-anchor': 'start'
+        })
+        .style('fill', 'steelblue')
+        .text('Close');
 
     svg.append('g')
         .attr({
-          class: 'x axis',
-          transform: 'translate(0, ' + height + ')'
+          'class': 'x axis',
+          'transform': 'translate(0, ' + height + ')'
         })
         .call(xAxis);
 
 
     svg.append('g')
         .attr({
-          class: 'y axis'
+          'class': 'y axis'
         })
         .call(yAxis);
 
