@@ -38,3 +38,9 @@ path {
   fill: silver;
   stroke-width: 0;
 }
+
+text.shadow{
+  stroke: purple;
+  stroke-width: 1px;
+  opacity: 0.9;
+}

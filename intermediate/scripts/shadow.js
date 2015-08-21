@@ -76,12 +76,12 @@
           class: 'area',
           d: area
         });
-    svg.append('path')
-        .datum(data)
-        .attr({
-          class: 'top-area',
-          d: topArea
-        });
+    // svg.append('path')
+    //     .datum(data)
+    //     .attr({
+    //       class: 'top-area',
+    //       d: topArea
+    //     });
 
     svg.append('path')
         .attr({
@@ -98,10 +98,15 @@
     svg.append('text')
         .attr({
           'x': width / 2,
-          'y': height + margin.bottom,
+          'y': 25,
+          'text-anchor': 'middle',
+          'class': 'shadow'
         })
-        .style('text-anchor', 'center')
-        .text('Date');
+        .style({
+          'text-decoration': 'underline',
+          'font-size': '16px',
+        })
+        .text('Value vs Date Graph');
 
 
     svg.append('g')
