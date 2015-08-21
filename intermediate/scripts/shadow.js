@@ -83,7 +83,8 @@
 
     svg.append('g')
         .attr({
-          class: 'y axis'
+          class: 'y axis',
+          'stroke-dasharray': ('3', '3')
         })
         .call(yAxis);
     svg.append('text')
