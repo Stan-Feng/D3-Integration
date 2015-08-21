@@ -20,6 +20,12 @@
   var yAxis = d3.svg.axis().scale(y)
       .orient('left').ticks(5);
 
+  //TODO: define the area function
+  var area = d3.svg.area()
+      .x(function(d){ return x(d.date); })
+      .y0(height)
+      .y1(function(d){ return y(d.close); });
+
   var valueline = d3.svg.line()
       .x(function(d){ return x(d.date); })
       .y(function(d){ return y(d.close); });
@@ -55,11 +61,17 @@
       d.close = +d.close;
     });
 
-    //Scale the range
     x.domain(d3.extent(data, function(d){ return d.date;} ));
     y.domain([0, d3.max(data, function(d){ return d.close;} )]);
 
-    //Append the valueline path
+    //TODO: draw shadow
+    svg.append('path')
+        .datum(data)
+        .attr({
+          class: 'area',
+          d: area
+        });
+
     svg.append('path')
         .attr({
           'class': 'line',
@@ -115,6 +127,7 @@
             .tickSize(-width, 0, 0)
             .tickFormat('')
           );
+
 
   });
 
