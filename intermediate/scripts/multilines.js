@@ -53,15 +53,16 @@
           'class': 'line',
           'd': valueline(data)
         });
-    //TODO: Add the text at the end of line which can outline what line is
     svg.append('text')
         .attr({
-          'transform': 'translate(' + (width + 3) + ', ' + y(data[0].open) + ')',
+          'transform': 'translate(' + x(data[data.length/2].date) + ', ' + (y(data[(data.length)/2].close) + 25) + ')',
           'dy': '0.35em',
-          'text-anchor': 'start'
+          'text-anchor': 'start',
+          'font-size': '16px'
         })
-        .style('fill', 'red')
-        .text('Open');
+        .style('fill', 'steelblue')
+        .text('Close');
+
 
     //TODO: Add second line to graph
     svg.append('path')
@@ -70,14 +71,18 @@
           'd': valueline2(data)
         }).
         style('stroke', 'red');
+    //TODO: Add the text at the end of line which can outline what line is
     svg.append('text')
         .attr({
-          'transform': 'translate(' + (width + 3) + ', ' + y(data[0].close) + ')',
+          'transform': 'translate(' + x(data[data.length/2].date) + ', ' +  ( yRight(data[(data.length)/2].open) -25) + ')',
           'dy': '0.35em',
-          'text-anchor': 'start'
+          'text-anchor': 'start',
+          'font-size': '16px'
         })
-        .style('fill', 'steelblue')
-        .text('Close');
+        .style('fill', 'red')
+        .text('Open');
+
+
 
     svg.append('g')
         .attr({
@@ -86,12 +91,24 @@
         })
         .call(xAxis);
 
-
     svg.append('g')
         .attr({
           'class': 'y axis'
         })
+        .style({
+          'fill': 'steelblue'
+        })
         .call(yAxis);
+
+    svg.append('g')
+        .attr({
+          'class': 'y axis',
+          'transform': 'translate(' + width + ', 0)'
+        })
+        .style({
+          'fill': 'red'
+        })
+        .call(yAxisRight);
 
   });
 })();

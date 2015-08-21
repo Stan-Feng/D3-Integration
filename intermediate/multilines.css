@@ -17,7 +17,8 @@ path {
 }
 
 .axis text{
-  font-family: sans-serif;
-  font-size: 10px;
+  font-family: monaco;
+  font-size: 12px;
+  font-weight: 600;
 }
 /**/
