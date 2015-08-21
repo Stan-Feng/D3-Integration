@@ -34,6 +34,21 @@
           transform: 'translate(' + margin.left + ',' + margin.top + ')'
         });
 
+  //TODO: Define grid line functions
+  function make_x_grid(){
+    return d3.svg.axis()
+        .scale(x)
+        .orient('bottom')
+        .ticks(5);
+  }
+
+  function make_y_grid(){
+    return d3.svg.axis()
+        .scale(y)
+        .orient('left')
+        .ticks(5)
+  }
+
   d3.csv('/public/testdata/data.csv', function(err, data){
     data.forEach(function(d){
       d.date = parseDate(d.date);
@@ -80,6 +95,25 @@
         })
         .style('text-anchor', 'middle')
         .text('Value');
+
+    //TODO: draw grid lines
+    svg.append('g')
+        .attr({
+          class: 'grid',
+          transform: 'translate(0, '+ height + ')'
+        }).
+        call(make_x_grid()
+          .tickSize(-height, 0, 0)
+          .tickFormat('')
+        );
+      svg.append('g')
+          .attr({
+            class: 'grid'
+          }).
+          call(make_y_grid()
+            .tickSize(-width, 0, 0)
+            .tickFormat('')
+          );
 
   });
 
