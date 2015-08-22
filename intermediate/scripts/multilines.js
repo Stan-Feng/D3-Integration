@@ -1,4 +1,3 @@
-(function(){
 
   var margin = { top : 20, bottom : 80, right : 40, left : 40 };
   var width = 700 - margin.left - margin.right;
@@ -116,7 +115,53 @@
           'fill': 'red'
         })
         .call(yAxisRight);
-
   });
-})();
+
+
+
+
+
+
+//TODO: Add onclick event to update data of D3
+function updateData(){
+  d3.csv('/public/testdata/data-alt.csv', function(err, data){
+    if(err) throw err;
+
+    data.forEach(function(d){
+      d.date = parseDate(d.date);
+      d.close = +d.close;
+    });
+
+    //TODO: Scale the range of data again
+    x.domain(d3.extent(data, function(d){ return d.date; } ));
+    y.domain([0, d3.max(data, function(d){ return d.close; } )]);
+
+    //TODO: Select the sections will be apllied changes to
+    var svg = d3.select('body').transition();
+
+    //TODO: Make the changes
+    svg.select('.line')
+        .duration(750)
+        .attr('d', valueline(data));
+  });
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
