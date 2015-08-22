@@ -1,6 +1,6 @@
 (function(){
 
-  var margin = { top : 30, bottom : 40, right : 40, left : 40 };
+  var margin = { top : 30, bottom : 50, right : 40, left : 40 };
   var width = 700 - margin.left - margin.right;
   var height =  370 - margin.top - margin.bottom;
 
@@ -11,7 +11,7 @@
   var yRight = d3.scale.linear().range([height, 0]);
 
   var xAxis = d3.svg.axis().scale(x)
-      .orient('bottom').ticks(5);
+      .orient('bottom').ticks(10);
   var yAxis = d3.svg.axis().scale(y)
       .orient('left').ticks(5);
   var yAxisRight = d3.svg.axis().scale(yRight)
@@ -89,7 +89,14 @@
           'class': 'x axis',
           'transform': 'translate(0, ' + height + ')'
         })
-        .call(xAxis);
+        .call(xAxis)
+        .selectAll('text')
+        .style('text-anchor', 'end')
+        .attr({
+          'dx': '-0.8em',
+          'dy': '0.15em',
+          'transform': 'rotate(-65)'
+        });
 
     svg.append('g')
         .attr({
