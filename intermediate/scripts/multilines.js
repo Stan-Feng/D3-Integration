@@ -143,6 +143,20 @@ function updateData(){
     svg.select('.line')
         .duration(750)
         .attr('d', valueline(data));
+    svg.select('.x.axis')
+        .duration(750)
+        .call(xAxis)
+        .selectAll('text')
+        .style('text-anchor', 'end')
+        .attr({
+          'dx': '-0.8em',
+          'dy': '0.15em',
+          'transform': 'rotate(-65)'
+        });
+    svg.select('.y.axis')
+        .duration(750)
+        .call(yAxis);
+
   });
 
 }
