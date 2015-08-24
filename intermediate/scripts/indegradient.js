@@ -68,10 +68,10 @@
         .selectAll('stop')
           .data([
             {offset : '0%', color: 'red'},
-            {offset : '40%', color: 'red'},
-            {offset : '40%', color: 'skyblue'},
-            {offset : '62%', color: 'skyblue'},
-            {offset : '62%', color: 'lightgreen'},
+            {offset : '30%', color: 'red'},
+            {offset : '45%', color: 'skyblue'},
+            {offset : '55%', color: 'skyblue'},
+            {offset : '70%', color: 'lightgreen'},
             {offset : '100%', color: 'lightgreen'}
         ])
         .enter().append('stop')
@@ -82,5 +82,4 @@
 
 
   });
-
 
