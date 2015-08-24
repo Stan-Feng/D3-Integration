@@ -1,0 +1,30 @@
+body {
+  margin: 0;
+  height: auto;
+}
+
+.line{
+  stroke:url(#line-gradient);
+  stroke-width: 2;
+}
+
+path {
+  stroke: steelblue;
+  stroke-width: 2;
+  fill: none;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: grey;
+  stroke-width: 1;
+  shape-rendering: crispEdges;
+}
+
+.axis text{
+  font-family: monaco;
+  font-size: 12px;
+  font-weight: 600;
+}
+/**/

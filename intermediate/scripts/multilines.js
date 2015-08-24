@@ -10,7 +10,7 @@
   var yRight = d3.scale.linear().range([height, 0]);
 
   var xAxis = d3.svg.axis().scale(x)
-      .orient('bottom').ticks(10).tickFormat(d3.time.format('%Y-%m-%d'));
+      .orient('bottom').ticks(5);
   var yAxis = d3.svg.axis().scale(y)
       .orient('left').ticks(5);
   var yAxisRight = d3.svg.axis().scale(yRight)
@@ -143,6 +143,7 @@ function updateData(){
     svg.select('.line')
         .duration(750)
         .attr('d', valueline(data));
+
     svg.select('.x.axis')
         .duration(750)
         .call(xAxis)
@@ -153,6 +154,7 @@ function updateData(){
           'dy': '0.15em',
           'transform': 'rotate(-65)'
         });
+
     svg.select('.y.axis')
         .duration(750)
         .call(yAxis);
